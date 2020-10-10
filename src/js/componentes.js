@@ -5,10 +5,25 @@ import { autos } from './db.js';
 
 
 // References
-const year      = document.querySelector( '#year' ),
-      result    = document.querySelector( '#resultado' ),
-      max       = new Date().getFullYear(),
-      min       = max - 10;
+const brand             = document.querySelector( '#marca' ),
+      year              = document.querySelector( '#year' ),
+      minimum           = document.querySelector( '#minimo' ),
+      maximum           = document.querySelector( '#maximo' ),
+      result            = document.querySelector( '#resultado' ),
+      doors             = document.querySelector( '#puertas' ),
+      transmission      = document.querySelector( '#transmision' ),
+      color             = document.querySelector( '#color' ),
+      max               = new Date().getFullYear(),
+      min               = max - 10,
+      searchData        = {
+        brand           : '',
+        year            : '',
+        minimum         : '',
+        maximum         : '',
+        doors           : '',
+        transmission    : '',
+        color           : ''
+      };
 
 
 
@@ -39,6 +54,13 @@ const showCars = autos => {
     });
 }
 
+// Llena el objeto con los datos
+const fillData = event => {
+    const value = event.target.value;
+    searchData[ event.target.name ] = ( isNaN( value ) ) ? value : parseInt( value );
+    console.log( searchData );
+}
+
 
 
 // Events
@@ -47,4 +69,13 @@ export const startEventListeners = () => {
         showCars( autos );
         fillSelect();
     });
+
+    brand.addEventListener( 'change', fillData );
+    year.addEventListener( 'change', fillData );
+    minimum.addEventListener( 'change', fillData );
+    maximum.addEventListener( 'change', fillData );
+    doors.addEventListener( 'change', fillData );
+    transmission.addEventListener( 'change', fillData );
+    color.addEventListener( 'change', fillData );
+
 }
