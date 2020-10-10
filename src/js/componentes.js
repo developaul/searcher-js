@@ -54,11 +54,59 @@ const showCars = autos => {
     });
 }
 
+// Filtra la marca del auto
+const brandFilter = auto => {
+    const { brand } = searchData;
+    return brand ? auto.marca === brand : auto;
+}
+
+// Filtra el año del auto
+const yearFilter = auto => {
+    const { year } = searchData;
+    return year ? auto.year === year : auto;
+}
+
+// Filtra el precio minimo
+const minimumFilter = auto => {
+    const { minimum } = searchData;
+    return minimum ? auto.precio >= minimum : auto;
+}
+
+// Filtra el precio máximo
+const maximumFilter = auto => {
+    const { maximum } = searchData;
+    return maximum ? auto.precio <= maximum : auto;
+}
+
+// Filtra la cantidad de puertas del auto
+const doorsFilter = auto => {
+    const { doors } = searchData;
+    return doors ? auto.puertas === doors : auto;
+}
+
+// Filtra la transmisión del auto
+const transmissionFilter = auto => {
+    const { transmission } = searchData;
+    return transmission ? auto.transmision === transmission : auto;
+}
+
+// Filtra el color del auto
+const colorFilter = auto => {
+    const { color } = searchData;
+    return color ? auto.color === color : auto;
+}
+
+// Filtra los carros
+const carFilter = () => {
+    const result = autos.filter( brandFilter ).filter( yearFilter ).filter( minimumFilter ).filter( maximumFilter ).filter( doorsFilter ).filter( transmissionFilter ).filter( colorFilter );
+    showCars( result );
+}
+
 // Llena el objeto con los datos
 const fillData = event => {
     const value = event.target.value;
     searchData[ event.target.name ] = ( isNaN( value ) ) ? value : parseInt( value );
-    console.log( searchData );
+    carFilter();
 }
 
 
