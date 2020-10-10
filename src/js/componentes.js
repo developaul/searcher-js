@@ -43,6 +43,16 @@ const clearHTML = () => {
     while( result.firstChild ) { result.removeChild( result.firstChild ); }
 }
 
+// Muestra un mensaje cuando no hay resultados
+const noResults = () => {
+    clearHTML();
+
+    const noResult = document.createElement( 'div' );
+    noResult.classList.add( 'alerta', 'error' );
+    noResult.textContent = 'No Hay Resultados, Intenta con otros términos de búsqueda';
+    result.appendChild( noResult );
+}
+
 // Muestra los autos en pantalla
 const showCars = autos => {
     clearHTML();
@@ -99,7 +109,7 @@ const colorFilter = auto => {
 // Filtra los carros
 const carFilter = () => {
     const result = autos.filter( brandFilter ).filter( yearFilter ).filter( minimumFilter ).filter( maximumFilter ).filter( doorsFilter ).filter( transmissionFilter ).filter( colorFilter );
-    showCars( result );
+    ( result.length > 0 ) ? showCars( result ) : noResults();
 }
 
 // Llena el objeto con los datos
@@ -125,5 +135,4 @@ export const startEventListeners = () => {
     doors.addEventListener( 'change', fillData );
     transmission.addEventListener( 'change', fillData );
     color.addEventListener( 'change', fillData );
-
 }
